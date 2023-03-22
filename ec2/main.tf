@@ -8,12 +8,12 @@ resource "aws_instance" "ec2" {
   ami                    = data.aws_ami.ami.image_id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
-  tags   = {
+  tags                   = {
     Name = var.component
   }
- }
+}
 
- resource = "null_resource" "provisioner" {
+ resource "null_resource" "provisioner" {
    provisioner "remote-exec" {
 
      connection {
@@ -29,6 +29,7 @@ resource "aws_instance" "ec2" {
             ]
    }
 
+}
 
 resource "aws_security_group" "sg" {
   name        = "${var.component}-${var.env}sg"
