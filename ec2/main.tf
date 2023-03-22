@@ -34,27 +34,28 @@ resource "aws_instance" "ec2" {
 resource "aws_security_group" "sg" {
   name        = "${var.component}-${var.env}sg"
   description = "Allow TLS inbound traffic"
-}
+
 
   ingress {
-    description      = "ALL"
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    description = "ALL"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
+
 
   tags = {
     Name = "${var.component}-${var.env}sg"
   }
-
+}
 
 
 resource "aws_route53_record" "record" {
