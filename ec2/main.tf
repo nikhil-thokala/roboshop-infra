@@ -54,7 +54,7 @@ resource "aws_security_group" "sg" {
   tags = {
     Name = "${var.component}-${var.env}sg"
   }
-}
+
 
 
 resource "aws_route53_record" "record" {
