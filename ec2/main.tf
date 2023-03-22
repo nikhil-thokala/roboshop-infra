@@ -7,31 +7,34 @@ data "aws_ami" "ami" {
 resource "aws_instance" "ec2" {
   ami                    = data.aws_ami.ami.image_id
   instance_type          = var.instance_type
-  vpc_security_group_ids = [var.sg_id]
+  vpc_security_group_ids = [aws_security_group.sg.id]
   tags   = {
     Name = var.component
   }
- provisioner "remote-exec" {
-   connection {
-     host = self.public_ip
-     user = "centos"
-     password = "DevOps321"
+ }
+
+ resource = "null_resource" "provisioner" {
+   provisioner "remote-exec" {
+
+     connection {
+          host = aws_instance.ec2.public_ip
+          user = "centos"
+          password = "DevOps321"
    }
 
    inline = [
-     "git clone https://github.com/nikhil-thokala/roboshop-shell",
-     "cd roboshop-shell" ,
-     "sudo bash ${var.component}.sh"
-     ]
- }
-}
+          "git clone https://github.com/nikhil-thokala/roboshop-shell",
+          "cd roboshop-shell",
+          "sudo bash ${var.component}.sh"
+            ]
+   }
 
 
 resource "aws_security_group" "sg" {
   name        = "${var.component}-${var.env}sg"
   description = "Allow TLS inbound traffic"
 
-  ingress {
+    {
     description      = "ALL"
     from_port        = 0
     to_port          = 0
@@ -44,7 +47,6 @@ resource "aws_security_group" "sg" {
     to_port          = 0
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
   }
 
   tags = {
