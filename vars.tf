@@ -1,6 +1,6 @@
 variable "instances" {
   default = {
-    catalogue = {
+    frontend = {
       name ="frontend"
       type = "t3.micro"
     }
