@@ -60,9 +60,9 @@ resource "aws_route53_record" "record" {
 }
 
 resource "aws_iam_policy" "ssm-policy" {
-  name        = "${var-env}-${var-component}-ssm"
+  name        = "${var.env}-${var.component}-ssm"
   path        = "/"
-  description = "${var-env}-${var-component}-ssm"
+  description = "${var.env}-${var.component}-ssm"
 
   policy = jsonencode({
     "Version": "2012-10-17",
@@ -76,7 +76,7 @@ resource "aws_iam_policy" "ssm-policy" {
           "ssm:GetParameters",
           "ssm:GetParameter"
         ],
-        "Resource": "arn:aws:ssm:us-east-1:936215820405:parameter/${var-env}.${var-component}*"
+        "Resource": "arn:aws:ssm:us-east-1:936215820405:parameter/${var.env}.${var.component}*"
       },
       {
         "Sid": "VisualEditor1",
@@ -88,8 +88,8 @@ resource "aws_iam_policy" "ssm-policy" {
   })
 }
 
-resource "aws_iam_role" "test_role" {
-  name = "${var-env}-${var-component}-role"
+resource "aws_iam_role" "role" {
+  name = "${var.env}-${var.component}-role"
 
   assume_role_policy = jsonencode({
     "Version": "2012-10-17",
@@ -106,7 +106,7 @@ resource "aws_iam_role" "test_role" {
 }
 
 resource "aws_iam_instance_profile" "profile" {
-  name =  "${var-env}-${var-component}-role"
+  name =  "${var.env}-${var.component}-role"
   role = aws_iam_role.role.name
 }
 
