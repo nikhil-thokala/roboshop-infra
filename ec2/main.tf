@@ -32,7 +32,7 @@ resource "aws_instance" "ec2" {
 }
 
 resource "aws_security_group" "sg" {
-  name        = "${var.component}-${var.env}sg"
+  name        = "${var.component}-${var.env}-sg"
   description = "Allow TLS inbound traffic"
 
 
@@ -53,7 +53,7 @@ resource "aws_security_group" "sg" {
 
 
   tags = {
-    Name = "${var.component}-${var.env}sg"
+    Name = "${var.component}-${var.env}-sg"
   }
 }
 
@@ -66,8 +66,3 @@ resource "aws_route53_record" "record" {
   records = [aws_instance.ec2.private_ip]
 }
 
-variable "component" {}
-variable "instance_type" {}
-variable "env" {
-  default = "dev"
-}
