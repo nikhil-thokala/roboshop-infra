@@ -1,3 +1,2 @@
-variable "instances" {
-
-  }
+variable "instances" {}
+variable "env" {}
