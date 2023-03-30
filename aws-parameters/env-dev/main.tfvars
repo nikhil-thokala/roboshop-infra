@@ -24,6 +24,6 @@ parameters = [
 #THIS IS NOT GOING TO BE PRACTICE IN COMPANIES, WE SHOULD  NOT KEEP PASSWORDS IN THE GIT REPOSITORIES
 
 secrets = [
-  { name = "test", value = "8080", type = "S ecureString" }
+  { name = "test", value = "8080", type = "SecureString" }
 ]
 
