@@ -24,3 +24,7 @@ module "docdb" {
   skip_final_snapshot      = each.value["skip_final_snapshot"]
   subnet_ids               = local.db_subnet_ids
 }
+
+output "vpc" {
+  value = local.db_subnet_ids
+}
