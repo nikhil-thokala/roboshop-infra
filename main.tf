@@ -29,14 +29,15 @@ module "docdb" {
 }
 
 module "rds" {
-  source   = "git::https://github.com/nikhil-thokala/tf-module-rds.git"
-  env      = var.env
-  tags     = var.tags
+  source = "git::https://github.com/nikhil-thokala/tf-module-rds.git"
+  env    = var.env
+  tags   = var.tags
 
-  subnet_ids               = local.db_subnet_ids
+  subnet_ids = local.db_subnet_ids
 
-  for_each                 = var.rds
-  engine                   = each.value["engine"]
-  engine_version           = each.value["engine_version"]
-  backup_retention_period  = each.value["backup_retention_period"]
-  preferred_backup_window  = each.value["preferred_backup_window"]
+  for_each                = var.rds
+  engine                  = each.value["engine"]
+  engine_version          = each.value["engine_version"]
+  backup_retention_period = each.value["backup_retention_period"]
+  preferred_backup_window = each.value["preferred_backup_window"]
+}
