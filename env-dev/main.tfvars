@@ -42,6 +42,7 @@ vpc = {
             name              = "db-az1"
             cidr_block        = "10.0.6.0/24"
             availability_zone = "us-east-1a"
+            subnet_type       = "db"
           }
           db-az2 = {
             name              = "db-az2"
@@ -52,3 +53,13 @@ vpc = {
 
       }
     }
+
+docdb = {
+  main = {
+    engine = "docdb "
+    engine_version = "4.0.0"
+    backup_retention_period = 2
+    preferred_backup_window = "07:00-09:00"
+
+  }
+}
