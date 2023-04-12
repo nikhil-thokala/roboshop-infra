@@ -68,3 +68,4 @@ module "rabbitmq" {
   for_each                = var.rabbitmq
   instance_type           = each.value["instance_type"]
 }
+
