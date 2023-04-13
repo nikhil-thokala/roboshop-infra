@@ -1,5 +1,5 @@
 git:
-	# git pull
+	#git pull
 	sudo rm -rf .terraform
 
 dev-apply: git
