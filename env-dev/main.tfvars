@@ -67,7 +67,7 @@ docdb = {
   }
 }
 
-rds ={
+rds = {
   main = {
     engine                  = "aurora-mysql"
     engine_version          = "5.7.mysql_aurora.2.11.1"
