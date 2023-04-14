@@ -111,7 +111,9 @@ alb = {
   }
 }
 
+
 app = {
+
   catalogue = {
     component = "catalogue"
     instance_type = "t3.nano"
@@ -119,7 +121,29 @@ app = {
     max_size           = 4
     min_size           = 1
     subnet_name        = "app"
-
-
+  }
+  cart = {
+    component = "cart"
+    instance_type = "t3.nano"
+    desired_capacity   = 1
+    max_size           = 4
+    min_size           = 1
+    subnet_name        = "app"
+  }
+  user = {
+    component = "user"
+    instance_type = "t3.nano"
+    desired_capacity   = 1
+    max_size           = 4
+    min_size           = 1
+    subnet_name        = "app"
+  }
+  shipping = {
+    component = "shipping"
+    instance_type = "t3.nano"
+    desired_capacity   = 1
+    max_size           = 4
+    min_size           = 1
+    subnet_name        = "app"
   }
 }
