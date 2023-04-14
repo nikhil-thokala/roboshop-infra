@@ -82,12 +82,12 @@ module "alb" {
 }
 
 
-module "apps" {
-  source = "git::https://github.com/nikhil-thokala/tf-module-apps.git"
+module "app" {
+  source = "git::https://github.com/nikhil-thokala/tf-module-app.git"
   env    = var.env
   tags   = var.tags
 
-  for_each          = var.apps
+  for_each          = var.app
   component         = each.value["component"]
   instance_type     = each.value["instance_type"]
 }
