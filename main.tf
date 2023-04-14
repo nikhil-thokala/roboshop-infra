@@ -11,61 +11,77 @@ module "vpc" {
   private_subnets = each.value["private_subnets"]
 }
 
-module "docdb" {
-  source   = "git::https://github.com/nikhil-thokala/tf-module-docdb.git"
-  env      = var.env
-  tags     = var.tags
+#module "docdb" {
+#  source   = "git::https://github.com/nikhil-thokala/tf-module-docdb.git"
+#  env      = var.env
+#  tags     = var.tags
+#
+#  subnet_ids = local.db_subnet_ids
+#
+#  for_each                 = var.docdb
+#  engine                   = each.value["engine"]
+#  engine_version           = each.value["engine_version"]
+#  backup_retention_period  = each.value["backup_retention_period"]
+#  preferred_backup_window  = each.value["preferred_backup_window"]
+#  skip_final_snapshot      = each.value["skip_final_snapshot"]
+#  no_of_instances          = each.value["no_of_instances"]
+#  instance_class           = each.value["instance_class"]
+#}
+#
+#module "rds" {
+#  source = "git::https://github.com/nikhil-thokala/tf-module-rds.git"
+#  env    = var.env
+#  tags   = var.tags
+#
+#  subnet_ids = local.db_subnet_ids
+#
+#  for_each                = var.rds
+#  engine                  = each.value["engine"]
+#  engine_version          = each.value["engine_version"]
+#  backup_retention_period = each.value["backup_retention_period"]
+#  preferred_backup_window = each.value["preferred_backup_window"]
+#  instance_class          = each.value["instance_class"]
+#  no_of_instances         = each.value["no_of_instances"]
+#}
+#
+#module "elasticache" {
+#  source = "git::https://github.com/nikhil-thokala/tf-module-elasticache.git"
+#  env    = var.env
+#  tags   = var.tags
+#
+#  subnet_ids = local.db_subnet_ids
+#
+#  for_each                = var.elasticache
+#  engine                  = each.value["engine"]
+#  engine_version          = each.value["engine_version"]
+#  num_cache_nodes         = each.value["num_cache_nodes"]
+#  node_type               = each.value["node_type"]
+#}
+#
+#module "rabbitmq" {
+#  source = "git::https://github.com/nikhil-thokala/tf-module-rabbitmq.git"
+#  env    = var.env
+#  tags   = var.tags
+#
+#  subnet_ids = local.db_subnet_ids
+#
+#  for_each                = var.rabbitmq
+#  instance_type           = each.value["instance_type"]
+#}
 
-  subnet_ids = local.db_subnet_ids
-
-  for_each                 = var.docdb
-  engine                   = each.value["engine"]
-  engine_version           = each.value["engine_version"]
-  backup_retention_period  = each.value["backup_retention_period"]
-  preferred_backup_window  = each.value["preferred_backup_window"]
-  skip_final_snapshot      = each.value["skip_final_snapshot"]
-  no_of_instances          = each.value["no_of_instances"]
-  instance_class           = each.value["instance_class"]
-}
-
-module "rds" {
-  source = "git::https://github.com/nikhil-thokala/tf-module-rds.git"
+module "alb" {
+  source = "git::https://github.com/nikhil-thokala/tf-module-alb.git"
   env    = var.env
   tags   = var.tags
 
-  subnet_ids = local.db_subnet_ids
-
-  for_each                = var.rds
-  engine                  = each.value["engine"]
-  engine_version          = each.value["engine_version"]
-  backup_retention_period = each.value["backup_retention_period"]
-  preferred_backup_window = each.value["preferred_backup_window"]
-  instance_class          = each.value["instance_class"]
-  no_of_instances         = each.value["no_of_instances"]
+  for_each           = var.alb
+  name               = each.value["name"]
+  internal           = each.value["internal"]
+  load_balancer_type = each.value["load_balancer_type"]
+  subnets            = lookup(local.subnet_ids, each.value["subnet_name"], null)
 }
 
-module "elasticache" {
-  source = "git::https://github.com/nikhil-thokala/tf-module-elasticache.git"
-  env    = var.env
-  tags   = var.tags
 
-  subnet_ids = local.db_subnet_ids
 
-  for_each                = var.elasticache
-  engine                  = each.value["engine"]
-  engine_version          = each.value["engine_version"]
-  num_cache_nodes         = each.value["num_cache_nodes"]
-  node_type               = each.value["node_type"]
-}
 
-module "rabbitmq" {
-  source = "git::https://github.com/nikhil-thokala/tf-module-rabbitmq.git"
-  env    = var.env
-  tags   = var.tags
-
-  subnet_ids = local.db_subnet_ids
-
-  for_each                = var.rabbitmq
-  instance_type           = each.value["instance_type"]
-}
 
