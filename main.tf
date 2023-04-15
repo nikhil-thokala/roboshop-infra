@@ -86,24 +86,24 @@ module "alb" {
 
 
 module "app" {
-  source        = "git::https://github.com/nikhil-thokala/tf-module-app.git"
-  env           = var.env
-  tags          = var.tags
-  bastion_cidr  = var.bastion_cidr
-  dns_domain    = var.dns_domain
+  source       = "git::https://github.com/nikhil-thokala/tf-module-app.git"
+  env          = var.env
+  tags         = var.tags
+  bastion_cidr = var.bastion_cidr
+  dns_domain   = var.dns_domain
 
   vpc_id = module.vpc["main"].vpc_id
 
-  for_each           = var.app
-  component          = each.value["component"]
-  instance_type      = each.value["instance_type"]
-  desired_capacity   = each.value["desired_capacity"]
-  max_size           = each.value["max_size"]
-  min_size           = each.value["min_size"]
-  subnets            = lookup(local.subnet_ids, each.value["subnet_name"], null)
-  port               = each.value["port"]
-  allow_app_to       = lookup(local.subnet_cidr, each.value["allow_app_to"], null)
-  alb                = lookup.(module.alb, each.value["alb"], null)
+  for_each         = var.app
+  component        = each.value["component"]
+  instance_type    = each.value["instance_type"]
+  desired_capacity = each.value["desired_capacity"]
+  max_size         = each.value["max_size"]
+  min_size         = each.value["min_size"]
+  subnets          = lookup(local.subnet_ids, each.value["subnet_name"], null)
+  port             = each.value["port"]
+  allow_app_to     = lookup(local.subnet_cidr, each.value["allow_app_to"], null)
+  alb_dns_name     = lookup(lookup(module.alb, each.value["alb"], null), "dns_name", null)
 }
 
 output "alb" {
