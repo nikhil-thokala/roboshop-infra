@@ -100,7 +100,7 @@ module "app" {
   port               = each.value["port"]
   allow_app_to       = lookup(local.subnet_cidr, each.value["allow_app_to"], null)
 }
-
-output "vpc" {
-  value = module.vpc
-}
+#
+#output "vpc" {
+#  value = module.vpc
+#}
