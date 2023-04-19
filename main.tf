@@ -148,6 +148,12 @@ resource "aws_spot_instance_request" "loadrunner" {
   tags = merge(var.tags, { Name = "${var.env}-loadrunner" })
 }
 
+
+resource "aws_ec2_tag" "name-tag" {
+  key         = "Name"
+  resource_id = aws_spot_instance_request.loadrunner.spot_instance_id
+  value       = "loadrunner"
+}
 resource "aws_security_group" "loadrunner" {
   name        = "loadrunner"
   description = "loadrunner"
